@@ -1,0 +1,29 @@
+<h3>Please Upload a file</h3>
+
+
+<div style="width: 50%">
+    <p-fileUpload #fileUpload name="file" customUpload="true" (uploadHandler)="onUpload($event,fileUpload)">
+    </p-fileUpload>
+
+</div>
+
+
+<p-dialog modal=true [closable]=false [closeOnEscape]=false [(visible)]="display">
+
+    <p-progressSpinner></p-progressSpinner>
+    <div>
+        <span style="font-weight: bold">Uploading File</span>
+    </div>
+</p-dialog>
+
+
+<p-dialog [baseZIndex]="10000" header="Information" modal=true [(visible)]="displayInformationDialog">
+    <div>
+        <span style="font-weight: bold">The File was uploaded sucessfully.</span>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton class="ui-button-info" (click)="displayInformationDialog=false"
+            label="Close"></button>
+    </p-footer>
+</p-dialog>

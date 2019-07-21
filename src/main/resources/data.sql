@@ -11,8 +11,8 @@
 DROP TABLE IF EXISTS file_info;
  
 CREATE TABLE file_info (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
+  id bigint  AUTO_INCREMENT  PRIMARY KEY,
   title VARCHAR(250) NOT NULL,
   description TEXT,
-  creation_date VARCHAR(250) DEFAULT NULL
+  creation_date timestamp
 );
