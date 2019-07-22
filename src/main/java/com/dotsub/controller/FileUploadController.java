@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author sinoa
  */
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/api/file")
 public class FileUploadController {
 
     public final IFileInfoService fileInfoService;
@@ -38,9 +38,9 @@ public class FileUploadController {
 
             FileInfo fileInfo = new FileInfo();
             fileInfo.setTitle(multipartFile.getOriginalFilename());
-            String description = "File Name: " + multipartFile.getOriginalFilename() + ", Content Type : " + multipartFile.getContentType() + ", Size :(" + (multipartFile.getSize() / 1024) + ") KB";
+            String description = "File Name: " + multipartFile.getOriginalFilename() + ", Content Type : " + multipartFile.getContentType() + ", Size :(" + multipartFile.getSize() + ") Bytes";
             fileInfo.setDescription(description);
-            fileInfo.setCreationDate(new Date()); // for now will create new Date()
+            fileInfo.setCreationDate(new Date());
 
             FileInfo fileInfoCreated = fileInfoService.create(fileInfo);
 

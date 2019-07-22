@@ -10,10 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import {BlockUIModule} from 'primeng/blockui';
 import {DialogModule} from 'primeng/dialog';
+import { HeaderComponent } from './header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    FileuploadComponent
+    FileuploadComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

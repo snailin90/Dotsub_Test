@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploadService } from "./fileupload.service";
+import { FileUploadService } from './fileupload.service';
 
 @Component({
   selector: 'app-fileupload',
@@ -10,43 +10,44 @@ export class FileuploadComponent implements OnInit {
 
   constructor(public fileUploadService: FileUploadService) { }
   block: boolean = false;
-  display: boolean = false;
+  uploadSpinnerModal: boolean = false;
   displayInformationDialog: boolean = false;
+  errorInformationDialog: boolean = false;
   ngOnInit() {
 
 
   }
 
 
- 
+
 
   onUpload($event, fileUpload) {
     const file = $event.files[0];
-    this.display = true;
+    this.uploadSpinnerModal = true;
     this.fileUploadService.upload(file).subscribe(
 
       response => {
-        this.display = false;
-        this.displayInformationDialog = true;
-        console.log(response);
+        this.uploadSpinnerModal = false;
+
+        if (response.code === '000') {
+          this.displayInformationDialog = true;
+        } else {
+          this.errorInformationDialog = true;
+
+        }
         fileUpload.clear();
 
       },
 
       error => {
-        console.log(error);
+        this.uploadSpinnerModal = false;
+        this.errorInformationDialog = true;
+
 
 
       });
 
   }
 
-  public testApi() {
-    // debugger;
-    // this.fileUploadService.pingServer().subscribe((data) => {
-    //   console.log(data);
-    // });
-    this.display = true;
-  }
 
 }

@@ -13,20 +13,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FileInfoServiceImpl implements IFileInfoService {
-    
+
     private final FileInfoRepository fileInfoRepository;
-    
+
     private final Logger LOGGER = LoggerFactory.getLogger(FileInfoServiceImpl.class);
-    
+
     public FileInfoServiceImpl(FileInfoRepository fileInfoRepository) {
         this.fileInfoRepository = fileInfoRepository;
     }
-    
+
+    /**
+     *
+     *
+     * @param fileInfo
+     * @return
+     * @throws Exception
+     *
+     * Save [fileInfo] in the In-Memory H2 database
+     */
     @Override
     public FileInfo create(FileInfo fileInfo) throws Exception {
         LOGGER.debug("FileInfo :: " + fileInfo);
         FileInfo result = fileInfoRepository.save(fileInfo);
         return result;
-        
+
     }
 }

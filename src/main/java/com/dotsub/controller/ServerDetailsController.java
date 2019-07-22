@@ -5,8 +5,6 @@ import com.dotsub.utility.OutputResponse;
 import com.dotsub.utility.ServerDetail;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author sinoa
  */
 @RestController
-@RequestMapping("/server")
+@RequestMapping("/api/server")
 public class ServerDetailsController {
 
     @Autowired
@@ -47,10 +45,9 @@ public class ServerDetailsController {
     }
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map pingServer() {
-        Map map = new HashMap();
-        map.put("message", "Server is running !!!");
-        return map;
+    public String pingServer() {
+
+        return "Server is running";
     }
 
 }

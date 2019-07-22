@@ -9,9 +9,5 @@ export class AppComponent {
   title = 'dotSub-UI';
 
 
-  uploadFile(event) {
-    console.log(event);
-    alert('Hello from the Upload File');
 
-  }
 }

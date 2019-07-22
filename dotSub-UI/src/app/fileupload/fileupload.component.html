@@ -8,7 +8,7 @@
 </div>
 
 
-<p-dialog modal=true [closable]=false [closeOnEscape]=false [(visible)]="display">
+<p-dialog modal=true [closable]=false [closeOnEscape]=false [(visible)]="uploadSpinnerModal">
 
     <p-progressSpinner></p-progressSpinner>
     <div>
@@ -24,6 +24,18 @@
 
     <p-footer>
         <button type="button" pButton class="ui-button-info" (click)="displayInformationDialog=false"
+            label="Close"></button>
+    </p-footer>
+</p-dialog>
+
+
+<p-dialog [baseZIndex]="10000" header="Error" modal=true [(visible)]="errorInformationDialog">
+    <div>
+        <span style="font-weight: bold; color:red">Not able to upload the file. Please try again later.</span>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton class="ui-button-danger" (click)="errorInformationDialog=false"
             label="Close"></button>
     </p-footer>
 </p-dialog>
