@@ -107,5 +107,25 @@ Once you deploy the backend the UI will be available in this URL
 **http://localhost:8080/dotsub/**
 
 
+**If you want to run the front-end source code :**
+
+Pre-requisites : 
+
+    Node
+    angular CLI
+
+
+In order to run angular locally  you first need to do:
+
+     npm install   --> download all the depedencies
+     npm start     --> start angular using light server
+
+
+once the you run **npm start** , you will reach the UI :
+
+http://localhost:4200
+
+**Note:** You can also use **"ng serve"** but since we are using a **"proxy file"** to avoid CORS when we call any service from the backend you need to use **"npm start"**.
+
 
  
