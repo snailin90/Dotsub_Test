@@ -7,6 +7,13 @@
 
 </div>
 
+<div *ngIf="rootDirectoryPath">
+    <br />
+    <em> <span>The file will be stored under folder <span style="font-weight: bold">"files_upload"</span>
+            which is under <span style="font-weight: bold">"{{rootDirectoryPath}}"</span> </span></em>
+
+</div>
+
 
 <p-dialog modal=true [closable]=false [closeOnEscape]=false [(visible)]="uploadSpinnerModal">
 
@@ -20,8 +27,9 @@
 <p-dialog [baseZIndex]="10000" header="Information" modal=true [(visible)]="displayInformationDialog">
     <div>
         <span style="font-weight: bold">The File was uploaded sucessfully.</span>
-    </div>
 
+    </div>
+    <br />
     <p-footer>
         <button type="button" pButton class="ui-button-info" (click)="displayInformationDialog=false"
             label="Close"></button>

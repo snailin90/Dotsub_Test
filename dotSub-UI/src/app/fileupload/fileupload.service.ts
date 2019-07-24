@@ -18,5 +18,9 @@ export class FileUploadService {
 
     }
 
+    public getRootDirectoryPath(): Observable<any> {
+        return this.httpClient.get('/dotsub/api/file/root-directory');
+    }
+
 
 }

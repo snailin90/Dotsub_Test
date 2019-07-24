@@ -13,8 +13,15 @@ export class FileuploadComponent implements OnInit {
   uploadSpinnerModal: boolean = false;
   displayInformationDialog: boolean = false;
   errorInformationDialog: boolean = false;
+  rootDirectoryPath: String = '';
   ngOnInit() {
+    this.fileUploadService.getRootDirectoryPath().subscribe(
+      response => {
+        if (response && response.rootDirectoryPath) {
+          this.rootDirectoryPath = response.rootDirectoryPath;
 
+        }
+      });
 
   }
 

@@ -36,7 +36,7 @@ public class FileUploadControllerTest {
         try {
             InputStream inputStream = new ClassPathResource("testFile.txt").getInputStream();
             MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "testFile.txt", "multipart/form-data", inputStream);
-            mockMvc.perform(MockMvcRequestBuilders.multipart("/file/upload").file(mockMultipartFile).file("file", mockMultipartFile.getBytes()))
+            mockMvc.perform(MockMvcRequestBuilders.multipart("/api/file/upload").file(mockMultipartFile).file("file", mockMultipartFile.getBytes()))
                     .andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
 
         } catch (IOException ex) {

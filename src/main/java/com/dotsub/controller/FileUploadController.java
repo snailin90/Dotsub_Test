@@ -6,6 +6,8 @@ import com.dotsub.service.IFileInfoService;
 import com.dotsub.utility.Constant;
 import com.dotsub.utility.FileServerUtil;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -59,6 +61,15 @@ public class FileUploadController {
         }
 
         return ResponseEntity.ok(genericModelDTO);
+    }
+
+    @RequestMapping(value = "/root-directory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRootDirectory() {
+        String rootDirectoryPath = FileServerUtil.getRootDirectoryPath();
+        LOGGER.info("rootDirectoryPath :: " + rootDirectoryPath);
+        Map map = new HashMap();
+        map.put("rootDirectoryPath", rootDirectoryPath);
+        return ResponseEntity.ok(map);
     }
 
 }
