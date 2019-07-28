@@ -14,5 +14,8 @@ CREATE TABLE file_info (
   id bigint  AUTO_INCREMENT  PRIMARY KEY,
   title VARCHAR(250) NOT NULL,
   description TEXT,
-  creation_date timestamp
+  creation_date timestamp,
+  file_url varchar(500) ,
+  file_original_name varchar(250)
+
 );

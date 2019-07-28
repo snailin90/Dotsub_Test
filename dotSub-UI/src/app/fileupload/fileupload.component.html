@@ -1,18 +1,117 @@
-<h3>Please Upload a file</h3>
+<div class="container" style="width: 50%">
+    <p-card styleClass="ui-card-shadow" header="Fill the form">
+
+        <form id="uploadFormId" #uploadForm="ngForm">
 
 
-<div style="width: 50%">
-    <p-fileUpload #fileUpload name="file" customUpload="true" (uploadHandler)="onUpload($event,fileUpload)">
-    </p-fileUpload>
 
+
+            <div class='row'>
+                <div class="col-sm-3">
+                    <label class="lblInput">Title:&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="col-sm-9">
+                    <input #fileTitleModel="ngModel" required type="text" name="fileTitleName" pInputText
+                        placeholder="File Title" [(ngModel)]="fileTitle"
+                        [ngClass]="{'error-box': (!fileTitleModel.valid && fileTitleModel.touched)}" />
+                </div>
+
+            </div>
+
+            <div style="margin-left:26%;margin-top: 2%;margin-bottom:2%"
+                *ngIf="fileTitleModel.errors  && (fileTitleModel.touched)">
+                <div class="error-message" [hidden]="!fileTitleModel.errors.required">
+                    *The field File Title can not be empty.
+                </div>
+
+            </div>
+
+
+            <div class='row' style="margin-top: 2px;">
+                <div class="col-sm-3">
+                    <label class="lblInput">Creation Date:</label>
+                </div>
+                <div class="col-sm-9">
+                    <p-calendar #fileCreationDateModel="ngModel" required name="fileCreationDateName"
+                        [(ngModel)]="fileCreationDate" [showIcon]="true"
+                        [ngClass]="{'error-box': (!fileCreationDateModel.valid && fileCreationDateModel.touched)}">
+                    </p-calendar>
+                </div>
+
+            </div>
+
+            <div style="margin-left:26%;margin-top: 2%;margin-bottom:2%"
+                *ngIf="fileCreationDateModel.errors  && (fileCreationDateModel.touched)">
+                <div class="error-message" [hidden]="!fileCreationDateModel.errors.required">
+                    *The field Creation Date can not be empty.
+                </div>
+
+            </div>
+
+            <div class='row' style="margin-top: 2px;">
+                <div class="col-sm-3">
+                    <label class="lblInput">Description:</label>
+                </div>
+                <div class="col-sm-9">
+                    <textarea #fileDescriptionModel="ngModel" required style="width: 88%; min-height: 100px;"
+                        name="fileDescriptionName" placeholder="Description" pInputTextarea
+                        [(ngModel)]="fileDescription"
+                        [ngClass]="{'error-box': (!fileDescriptionModel.valid && fileDescriptionModel.touched)}"></textarea>
+
+                </div>
+
+            </div>
+
+            <div style="margin-left:26%;margin-top: 2%;margin-bottom:2%"
+                *ngIf="fileDescriptionModel.errors  && (fileDescriptionModel.touched)">
+                <div class="error-message" [hidden]="!fileDescriptionModel.errors.required">
+                    *The field Description can not be empty.
+                </div>
+
+            </div>
+
+            <div class='row'>
+                <div class="col-sm-3">
+                    <label class="lblInput">Select File:</label>
+                </div>
+
+                <div class="col-sm-8">
+                    <p-fileUpload #fileUpload name="file" [showUploadButton]="false" customUpload="true">
+                    </p-fileUpload>
+
+                </div>
+            </div>
+
+            <br />
+            <div class='row'>
+                <div class="col-3"></div>
+
+                <div class="col-9" style="padding-left: 444px;">
+
+
+                    <button style="margin-right: 1%" (click)="send(uploadForm)" type="button"
+                        class="btn btn-primary">Send</button>
+                    <button type="button" (click)="cancel(uploadForm)" class="btn btn-secondary">Cancel</button>
+                </div>
+
+
+            </div>
+
+        </form>
+    </p-card>
+
+
+
+
+    <div *ngIf="rootDirectoryPath">
+        <br />
+        <em> <span style="font-size: 18px;">The file will be stored under folder <span
+                    style="font-weight: bold">"files_upload"</span>
+                which is under <span style="font-weight: bold">"{{rootDirectoryPath}}"</span> </span></em>
+
+    </div>
 </div>
 
-<div *ngIf="rootDirectoryPath">
-    <br />
-    <em> <span>The file will be stored under folder <span style="font-weight: bold">"files_upload"</span>
-            which is under <span style="font-weight: bold">"{{rootDirectoryPath}}"</span> </span></em>
-
-</div>
 
 
 <p-dialog modal=true [closable]=false [closeOnEscape]=false [(visible)]="uploadSpinnerModal">
@@ -39,11 +138,12 @@
 
 <p-dialog [baseZIndex]="10000" header="Error" modal=true [(visible)]="errorInformationDialog">
     <div>
-        <span style="font-weight: bold; color:red">Not able to upload the file. Please try again later.</span>
+        <span style="font-weight: bold; color:red">{{errorMessage}}</span>
     </div>
 
     <p-footer>
-        <button type="button" pButton class="ui-button-danger" (click)="errorInformationDialog=false"
-            label="Close"></button>
+
+
+        <button type="button" (click)="errorInformationDialog=false" class="btn btn-secondary">Cancel</button>
     </p-footer>
 </p-dialog>

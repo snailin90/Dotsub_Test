@@ -11,9 +11,12 @@ export class FileUploadService {
     constructor(private httpClient: HttpClient) { }
 
 
-    public upload(file: any): Observable<any> {
+    public upload(file: any, title, description, creationDate): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('creationDate', creationDate);
         return this.httpClient.post('/dotsub/api/file/upload', formData);
 
     }

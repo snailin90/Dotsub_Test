@@ -9,8 +9,7 @@ import com.dotsub.model.FileInfo;
 public interface IFileInfoService {
 
     public FileInfo create(FileInfo fileInfo) throws Exception;
-    
-    
-    
+
+    public FileInfo update(FileInfo fileInfo) throws Exception;
 
 }

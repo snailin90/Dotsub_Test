@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dotsub;
 
 import java.io.IOException;
@@ -36,7 +31,9 @@ public class FileUploadControllerTest {
         try {
             InputStream inputStream = new ClassPathResource("testFile.txt").getInputStream();
             MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "testFile.txt", "multipart/form-data", inputStream);
-            mockMvc.perform(MockMvcRequestBuilders.multipart("/api/file/upload").file(mockMultipartFile).file("file", mockMultipartFile.getBytes()))
+            mockMvc.perform(MockMvcRequestBuilders.multipart("/api/file/upload")
+                    .file(mockMultipartFile).file("file", mockMultipartFile.getBytes())
+                    .param("title", "Pedro").param("description", "Pedro").param("creationDate", "1564329889525"))
                     .andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
 
         } catch (IOException ex) {

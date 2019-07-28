@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,20 +35,30 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericModelDTO<FileInfo>> uploadFile(@RequestPart(value = "file", required = true) MultipartFile multipartFile) {
+    public ResponseEntity<GenericModelDTO<FileInfo>> uploadFile(@RequestPart(value = "file", required = true) MultipartFile multipartFile,
+            @RequestParam(name = "title") String fileTitle,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "creationDate") Long creationDate) {
+
+        LOGGER.debug("Title :: " + fileTitle);
+        LOGGER.debug("description :: " + description);
+        LOGGER.debug("creationDate :: " + creationDate);
+
         GenericModelDTO<FileInfo> genericModelDTO = new GenericModelDTO<>();
         try {
 
             FileInfo fileInfo = new FileInfo();
-            fileInfo.setTitle(multipartFile.getOriginalFilename());
-            String description = "File Name: " + multipartFile.getOriginalFilename() + ", Content Type : " + multipartFile.getContentType() + ", Size :(" + multipartFile.getSize() + ") Bytes";
+            fileInfo.setTitle(fileTitle);
+            fileInfo.setFileOriginalName(multipartFile.getOriginalFilename());
             fileInfo.setDescription(description);
-            fileInfo.setCreationDate(new Date());
+            fileInfo.setCreationDate(new Date(creationDate));
 
             FileInfo fileInfoCreated = fileInfoService.create(fileInfo);
 
             if (fileInfoCreated != null && fileInfoCreated.getId() != null && fileInfoCreated.getId() > 0) {
-                FileServerUtil.saveFileInServer(multipartFile, fileInfoCreated.getId());
+                String fileUrl = FileServerUtil.saveFileInServer(multipartFile, fileInfoCreated.getId());
+                fileInfoCreated.setFileUploadUrl(fileUrl);
+                fileInfoCreated = fileInfoService.update(fileInfoCreated);
             }
             genericModelDTO.setSingleObject(fileInfoCreated);
             genericModelDTO.setCode(Constant.SUCCESS_CODE);

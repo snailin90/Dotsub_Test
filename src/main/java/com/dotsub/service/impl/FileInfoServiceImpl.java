@@ -1,5 +1,6 @@
 package com.dotsub.service.impl;
 
+import com.dotsub.exception.FileUploadNotFoundException;
 import com.dotsub.model.FileInfo;
 import com.dotsub.repository.FileInfoRepository;
 import org.slf4j.Logger;
@@ -37,5 +38,28 @@ public class FileInfoServiceImpl implements IFileInfoService {
         FileInfo result = fileInfoRepository.save(fileInfo);
         return result;
 
+    }
+
+    /**
+     *
+     * @param fileInfo
+     * @return
+     * @throws Exception
+     *
+     * Update [fileInfo] in the In-Memory H2 database
+     */
+    @Override
+    public FileInfo update(FileInfo fileInfo) throws Exception {
+        if (fileInfo.getId() == null || fileInfo.getId() <= 0) {
+            throw new FileUploadNotFoundException("The ID of the file is not correct. "
+                    + "The ID [" + fileInfo.getId() + "]");
+        }
+
+        if (!fileInfoRepository.findById(fileInfo.getId()).isPresent()) {
+            throw new FileUploadNotFoundException("The File with ID [" + fileInfo.getId() + "] was not Found.");
+        }
+        FileInfo result = fileInfoRepository.save(fileInfo);
+
+        return result;
     }
 }

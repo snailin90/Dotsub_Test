@@ -30,7 +30,7 @@ public class FileServerUtil {
      * Note: Root Directory will vary depending in the OS and the configuration
      *
      */
-    public static void saveFileInServer(MultipartFile multipartFile, Long fileInfoId) throws IOException {
+    public static String saveFileInServer(MultipartFile multipartFile, Long fileInfoId) throws IOException {
         LOGGER.debug("File Original Name :: " + multipartFile.getOriginalFilename());
         LOGGER.debug(" Name :: " + multipartFile.getName());
         LOGGER.debug("Content Type :: " + multipartFile.getContentType());
@@ -46,6 +46,7 @@ public class FileServerUtil {
         }
         File fileUpload = new File(fsv.getDefaultDirectory() + "/" + Constant.SERVER_FILE_FOLDER + "/id_" + fileInfoId + "_" + multipartFile.getOriginalFilename());
         multipartFile.transferTo(fileUpload);
+        return fileUpload.getPath();
     }
 
     /**

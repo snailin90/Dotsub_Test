@@ -32,6 +32,12 @@ public class FileInfo implements Serializable {
     @Column(name = "creation_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
+    @NonNull
+    @Column(name = "file_url")
+    private String fileUploadUrl;
+    @NonNull
+    @Column(name = "file_original_name")
+    private String fileOriginalName;
 
     public Long getId() {
         return id;
@@ -63,6 +69,22 @@ public class FileInfo implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getFileOriginalName() {
+        return fileOriginalName;
+    }
+
+    public void setFileOriginalName(String fileOriginalName) {
+        this.fileOriginalName = fileOriginalName;
+    }
+
+    public String getFileUploadUrl() {
+        return fileUploadUrl;
+    }
+
+    public void setFileUploadUrl(String fileUploadUrl) {
+        this.fileUploadUrl = fileUploadUrl;
     }
 
     @Override
